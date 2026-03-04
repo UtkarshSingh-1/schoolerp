@@ -1,0 +1,4 @@
+{
+  "message": "No metadata for \"User\" was found.",
+  "stack": "EntityMetadataNotFoundError: No metadata for \"User\" was found.\n    at DataSource.getMetadata (C:\\projects\\schoolerp\\school-erp-v3\\node_modules\\typeorm\\data-source\\DataSource.js:305:19)\n    at get metadata (C:\\projects\\schoolerp\\school-erp-v3\\node_modules\\typeorm\\repository\\Repository.js:16:40)\n    at UserRepository.findOne (C:\\projects\\schoolerp\\school-erp-v3\\node_modules\\typeorm\\repository\\Repository.js:276:42)\n    at UserRepository.findByEmail (C:\\projects\\schoolerp\\school-erp-v3\\dist\\apps\\main-api\\main.js:1480:21)\n    at AuthService.validateUser (C:\\projects\\schoolerp\\school-erp-v3\\dist\\apps\\main-api\\main.js:1387:48)\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at async AuthController.login (C:\\projects\\schoolerp\\school-erp-v3\\dist\\apps\\main-api\\main.js:1246:26)"
+}

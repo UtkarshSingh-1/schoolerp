@@ -1,0 +1,11 @@
+import React from 'react';
+
+function App() {
+  return (
+    <div style={{ padding: '20px', background: '#f0f', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyCenter: 'center' }}>
+      <h1 style={{ color: 'white', fontSize: '3rem' }}>REACT IS WORKING</h1>
+    </div>
+  );
+}
+
+export default App;

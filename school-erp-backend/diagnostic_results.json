@@ -1,0 +1,233 @@
+{
+  "db": {
+    "tables": [
+      "admissions",
+      "attendance",
+      "classes",
+      "exam_attempts",
+      "exam_responses",
+      "exams",
+      "lecture_schedules",
+      "ledger_entries",
+      "roles",
+      "schools",
+      "students",
+      "subjects",
+      "teachers",
+      "transactions",
+      "users"
+    ],
+    "students": [
+      {
+        "id": "7db9a849-45e2-415b-b9d7-27c6be642192",
+        "admission_no": "ADM-1772527819088",
+        "full_name": "Test Fifth",
+        "current_class_id": "d7193adc-85f3-463b-bb51-d976527ba6e1",
+        "school_id": "66666666-6666-6666-6666-666666666666"
+      },
+      {
+        "id": "30571cc3-65d9-4b64-8d7c-86704be59c0c",
+        "admission_no": "ADM-2024-001",
+        "full_name": null,
+        "current_class_id": null,
+        "school_id": "66666666-6666-6666-6666-666666666666"
+      }
+    ],
+    "classes": [
+      {
+        "id": "de6ac0b7-15c8-4872-80b0-3b8e0d6e038c",
+        "name": "10-A",
+        "section": "A",
+        "school_id": "66666666-6666-6666-6666-666666666666"
+      }
+    ],
+    "admissions": [
+      {
+        "id": "c8dc814a-3e71-49a4-84e0-90c4ee5a9feb",
+        "schoolId": "66666666-6666-6666-6666-666666666666",
+        "applicantFullName": "Utkarsh Singh",
+        "email": "kshatriyautkarsh404@gmail.com",
+        "phone": "9250818908",
+        "targetClassId": "d7193adc-85f3-463b-9c79-cabde5850ad4",
+        "status": "APPROVED",
+        "remarks": "Processed by Admin",
+        "createdAt": "2026-03-02T02:21:37.076Z",
+        "updatedAt": "2026-03-02T02:21:53.719Z",
+        "metadata": {
+          "address": "B-8/9 Himalay Bhawan, Ratanpur, Panki, Kanpur",
+          "fatherName": "Amarnath Singh",
+          "motherName": "Seema Singh"
+        },
+        "processedBy": "737b50e9-6577-4f66-925a-6815c484e483",
+        "updatedBy": null
+      }
+    ],
+    "roles": [
+      {
+        "id": "00000000-0000-0000-0000-111111111111",
+        "name": "SUPER_ADMIN",
+        "permissions": [
+          "*"
+        ]
+      },
+      {
+        "id": "00000000-0000-0000-0000-333333333333",
+        "name": "TEACHER",
+        "permissions": [
+          "read"
+        ]
+      }
+    ],
+    "users": [
+      {
+        "id": "ccbff324-3902-4b42-9dd1-e42328d8ad00",
+        "email": "superadmin@demo.com",
+        "role_id": "00000000-0000-0000-0000-111111111111",
+        "school_id": "66666666-6666-6666-6666-666666666666"
+      },
+      {
+        "id": "eb0fd55b-1776-468e-9f62-c18b538a02cd",
+        "email": "teacher@demo.com",
+        "role_id": "00000000-0000-0000-0000-333333333333",
+        "school_id": "66666666-6666-6666-6666-666666666666"
+      }
+    ],
+    "audit_logs_columns": [],
+    "students_columns": [
+      {
+        "column_name": "id",
+        "data_type": "uuid",
+        "is_nullable": "NO"
+      },
+      {
+        "column_name": "school_id",
+        "data_type": "uuid",
+        "is_nullable": "NO"
+      },
+      {
+        "column_name": "admission_no",
+        "data_type": "character varying",
+        "is_nullable": "NO"
+      },
+      {
+        "column_name": "first_name",
+        "data_type": "character varying",
+        "is_nullable": "NO"
+      },
+      {
+        "column_name": "last_name",
+        "data_type": "character varying",
+        "is_nullable": "NO"
+      },
+      {
+        "column_name": "national_id",
+        "data_type": "text",
+        "is_nullable": "YES"
+      },
+      {
+        "column_name": "full_name",
+        "data_type": "character varying",
+        "is_nullable": "YES"
+      },
+      {
+        "column_name": "date_of_birth",
+        "data_type": "date",
+        "is_nullable": "YES"
+      },
+      {
+        "column_name": "gender",
+        "data_type": "character varying",
+        "is_nullable": "YES"
+      },
+      {
+        "column_name": "current_class_id",
+        "data_type": "uuid",
+        "is_nullable": "YES"
+      },
+      {
+        "column_name": "parent_contact",
+        "data_type": "character varying",
+        "is_nullable": "NO"
+      },
+      {
+        "column_name": "created_at",
+        "data_type": "timestamp with time zone",
+        "is_nullable": "YES"
+      },
+      {
+        "column_name": "updated_at",
+        "data_type": "timestamp with time zone",
+        "is_nullable": "YES"
+      },
+      {
+        "column_name": "created_by",
+        "data_type": "uuid",
+        "is_nullable": "YES"
+      },
+      {
+        "column_name": "updated_by",
+        "data_type": "uuid",
+        "is_nullable": "YES"
+      }
+    ]
+  },
+  "api": {
+    "login": {
+      "status": 201
+    },
+    "/students": {
+      "status": 200,
+      "isArray": true,
+      "length": 2
+    },
+    "/classes": {
+      "status": 200,
+      "isArray": true,
+      "length": 1
+    },
+    "/dashboard/metrics": {
+      "status": 200,
+      "isArray": false
+    },
+    "/dashboard/recent-admissions": {
+      "status": 200,
+      "isArray": true,
+      "length": 1
+    },
+    "/admissions": {
+      "status": 200,
+      "isArray": true,
+      "length": 1
+    },
+    "/teachers": {
+      "status": 200,
+      "isArray": true,
+      "length": 1
+    },
+    "/subjects": {
+      "status": 200,
+      "isArray": true,
+      "length": 1
+    },
+    "/attendance": {
+      "status": 200,
+      "isArray": true,
+      "length": 0
+    },
+    "/exams": {
+      "status": 200,
+      "isArray": true,
+      "length": 0
+    },
+    "/timetable": {
+      "status": 200,
+      "isArray": true,
+      "length": 0
+    },
+    "/finance/fees/transactions": {
+      "status": 200,
+      "isArray": true,
+      "length": 0
+    }
+  }
+}

@@ -1,0 +1,11 @@
+import { createRoot } from 'react-dom/client'
+import App from './App.jsx'
+
+console.log('MAIN BOOTING');
+const el = document.getElementById('root');
+if (el) {
+  createRoot(el).render(<App />);
+  console.log('RENDER CALLED');
+} else {
+  console.log('ROOT NOT FOUND');
+}

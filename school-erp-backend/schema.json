@@ -1,0 +1,116 @@
+{
+  "classes": [
+    {
+      "column_name": "id",
+      "data_type": "integer"
+    },
+    {
+      "column_name": "name",
+      "data_type": "character varying"
+    },
+    {
+      "column_name": "section",
+      "data_type": "character varying"
+    },
+    {
+      "column_name": "maximum_capacity",
+      "data_type": "integer"
+    },
+    {
+      "column_name": "created_at",
+      "data_type": "timestamp without time zone"
+    }
+  ],
+  "entrance_exams": [
+    {
+      "column_name": "id",
+      "data_type": "integer"
+    },
+    {
+      "column_name": "title",
+      "data_type": "character varying"
+    },
+    {
+      "column_name": "total_marks",
+      "data_type": "integer"
+    },
+    {
+      "column_name": "exam_date",
+      "data_type": "date"
+    }
+  ],
+  "subjects": [
+    {
+      "column_name": "id",
+      "data_type": "integer"
+    },
+    {
+      "column_name": "name",
+      "data_type": "character varying"
+    },
+    {
+      "column_name": "code",
+      "data_type": "character varying"
+    }
+  ],
+  "applicants": [
+    {
+      "column_name": "id",
+      "data_type": "integer"
+    },
+    {
+      "column_name": "first_name",
+      "data_type": "character varying"
+    },
+    {
+      "column_name": "last_name",
+      "data_type": "character varying"
+    },
+    {
+      "column_name": "dob",
+      "data_type": "date"
+    },
+    {
+      "column_name": "phone",
+      "data_type": "character varying"
+    },
+    {
+      "column_name": "email",
+      "data_type": "character varying"
+    },
+    {
+      "column_name": "applied_class",
+      "data_type": "character varying"
+    },
+    {
+      "column_name": "status",
+      "data_type": "character varying"
+    },
+    {
+      "column_name": "created_at",
+      "data_type": "timestamp without time zone"
+    }
+  ],
+  "exam_results": [
+    {
+      "column_name": "id",
+      "data_type": "integer"
+    },
+    {
+      "column_name": "applicant_id",
+      "data_type": "integer"
+    },
+    {
+      "column_name": "exam_id",
+      "data_type": "integer"
+    },
+    {
+      "column_name": "score",
+      "data_type": "integer"
+    },
+    {
+      "column_name": "status",
+      "data_type": "character varying"
+    }
+  ]
+}

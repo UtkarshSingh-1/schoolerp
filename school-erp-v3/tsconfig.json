@@ -1,0 +1,110 @@
+{
+    "compilerOptions": {
+        "module": "CommonJS",
+        "declaration": true,
+        "removeComments": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "allowSyntheticDefaultImports": true,
+        "target": "ESNext",
+        "sourceMap": true,
+        "outDir": "./dist",
+        "baseUrl": "./",
+        "incremental": true,
+        "skipLibCheck": true,
+        "strictNullChecks": false,
+        "noImplicitAny": false,
+        "strictBindCallApply": false,
+        "forceConsistentCasingInFileNames": false,
+        "noFallthroughCasesInSwitch": false,
+        "paths": {
+            "@libs/tenant": [
+                "libs/tenant/src"
+            ],
+            "@libs/tenant/*": [
+                "libs/tenant/src/*"
+            ],
+            "@libs/rbac": [
+                "libs/rbac/src"
+            ],
+            "@libs/rbac/*": [
+                "libs/rbac/src/*"
+            ],
+            "@libs/security": [
+                "libs/security/src"
+            ],
+            "@libs/security/*": [
+                "libs/security/src/*"
+            ],
+            "@libs/common": [
+                "libs/common/src"
+            ],
+            "@libs/common/*": [
+                "libs/common/src/*"
+            ],
+            "@libs/database": [
+                "libs/database/src"
+            ],
+            "@libs/database/*": [
+                "libs/database/src/*"
+            ],
+            "@libs/queue": [
+                "libs/queue/src"
+            ],
+            "@libs/queue/*": [
+                "libs/queue/src/*"
+            ],
+            "@libs/cache": [
+                "libs/cache/src"
+            ],
+            "@libs/cache/*": [
+                "libs/cache/src/*"
+            ],
+            "@libs/storage": [
+                "libs/storage/src"
+            ],
+            "@libs/storage/*": [
+                "libs/storage/src/*"
+            ],
+            "@app/auth-service/*": [
+                "apps/auth-service/src/*"
+            ],
+            "@app/student-service/*": [
+                "apps/student-service/src/*"
+            ],
+            "@app/finance-service/*": [
+                "apps/finance-service/src/*"
+            ],
+            "@app/exam-service/*": [
+                "apps/exam-service/src/*"
+            ],
+            "@app/admission-service/*": [
+                "apps/admission-service/src/*"
+            ],
+            "@app/audit-service/*": [
+                "apps/audit-service/src/*"
+            ],
+            "@app/notification-service/*": [
+                "apps/notification-service/src/*"
+            ],
+            "@app/proctoring-service/*": [
+                "apps/proctoring-service/src/*"
+            ],
+            "@app/violation-tracker/*": [
+                "apps/violation-tracker/src/*"
+            ],
+            "@app/worker-service/*": [
+                "apps/worker-service/src/*"
+            ],
+            "@app/teacher-service/*": [
+                "apps/teacher-service/src/*"
+            ],
+            "@app/leave-service/*": [
+                "apps/leave-service/src/*"
+            ],
+            "@app/realtime-service/*": [
+                "apps/realtime-service/src/*"
+            ]
+        }
+    }
+}

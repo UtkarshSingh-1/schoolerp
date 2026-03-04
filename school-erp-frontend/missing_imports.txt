@@ -1,0 +1,11 @@
+C:\projects\schoolerp\school-erp-frontend\src\pages\Admission.jsx: useEffect, step, setStep
+C:\projects\schoolerp\school-erp-frontend\src\pages\Attendance.jsx: studentsApi, attendanceApi
+C:\projects\schoolerp\school-erp-frontend\src\pages\Classes.jsx: useToast
+C:\projects\schoolerp\school-erp-frontend\src\pages\Exams.jsx: React, isAcademicStaff, isStudentOrParent
+C:\projects\schoolerp\school-erp-frontend\src\pages\Fees.jsx: React, feeSummary
+C:\projects\schoolerp\school-erp-frontend\src\pages\HostelManagement.jsx: user
+C:\projects\schoolerp\school-erp-frontend\src\pages\StaffManagement.jsx: useState, useEffect
+C:\projects\schoolerp\school-erp-frontend\src\pages\Students.jsx: useNavigate, useState, useEffect
+C:\projects\schoolerp\school-erp-frontend\src\pages\SubjectManagement.jsx: useToast
+C:\projects\schoolerp\school-erp-frontend\src\pages\Timetable.jsx: useState, useEffect
+C:\projects\schoolerp\school-erp-frontend\src\pages\TransportManagement.jsx: user

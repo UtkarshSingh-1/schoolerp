@@ -1,0 +1,127 @@
+{
+  "users_columns": [
+    {
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO"
+    },
+    {
+      "column_name": "school_id",
+      "data_type": "uuid",
+      "is_nullable": "NO"
+    },
+    {
+      "column_name": "role_id",
+      "data_type": "uuid",
+      "is_nullable": "YES"
+    },
+    {
+      "column_name": "is_active",
+      "data_type": "boolean",
+      "is_nullable": "NO"
+    },
+    {
+      "column_name": "email",
+      "data_type": "character varying",
+      "is_nullable": "NO"
+    },
+    {
+      "column_name": "password_hash",
+      "data_type": "character varying",
+      "is_nullable": "NO"
+    },
+    {
+      "column_name": "full_name",
+      "data_type": "character varying",
+      "is_nullable": "NO"
+    },
+    {
+      "column_name": "created_at",
+      "data_type": "timestamp without time zone",
+      "is_nullable": "NO"
+    },
+    {
+      "column_name": "updated_at",
+      "data_type": "timestamp without time zone",
+      "is_nullable": "NO"
+    }
+  ],
+  "roles_columns": [
+    {
+      "column_name": "id",
+      "data_type": "uuid",
+      "is_nullable": "NO"
+    },
+    {
+      "column_name": "school_id",
+      "data_type": "uuid",
+      "is_nullable": "NO"
+    },
+    {
+      "column_name": "permissions",
+      "data_type": "jsonb",
+      "is_nullable": "NO"
+    },
+    {
+      "column_name": "updated_at",
+      "data_type": "timestamp without time zone",
+      "is_nullable": "NO"
+    },
+    {
+      "column_name": "name",
+      "data_type": "character varying",
+      "is_nullable": "NO"
+    },
+    {
+      "column_name": "created_at",
+      "data_type": "timestamp without time zone",
+      "is_nullable": "NO"
+    }
+  ],
+  "superadmin": {
+    "id": "ccbff324-3902-4b42-9dd1-e42328d8ad00",
+    "school_id": "66666666-6666-6666-6666-666666666666",
+    "role_id": "00000000-0000-0000-0000-111111111111",
+    "is_active": true,
+    "email": "superadmin@demo.com",
+    "password_hash": "$2b$10$Y.x1gtwIvPmuwXTrl364S.T68fVpuF8XP/DtvOofLTEzUodNp8G2u",
+    "full_name": "Demo Super Admin",
+    "created_at": "2026-03-03T02:05:58.189Z",
+    "updated_at": "2026-03-03T02:05:58.189Z"
+  },
+  "superadmin_role": {
+    "id": "00000000-0000-0000-0000-111111111111",
+    "school_id": "66666666-6666-6666-6666-666666666666",
+    "permissions": [
+      "*"
+    ],
+    "updated_at": "2026-03-03T02:05:57.705Z",
+    "name": "SUPER_ADMIN",
+    "created_at": "2026-03-03T02:05:57.705Z"
+  },
+  "guard_user_query": [
+    {
+      "id": "ccbff324-3902-4b42-9dd1-e42328d8ad00",
+      "school_id": "66666666-6666-6666-6666-666666666666",
+      "role_id": "00000000-0000-0000-0000-111111111111",
+      "is_active": true,
+      "email": "superadmin@demo.com",
+      "password_hash": "$2b$10$Y.x1gtwIvPmuwXTrl364S.T68fVpuF8XP/DtvOofLTEzUodNp8G2u",
+      "full_name": "Demo Super Admin",
+      "created_at": "2026-03-03T02:05:58.189Z",
+      "updated_at": "2026-03-03T02:05:58.189Z"
+    }
+  ],
+  "guard_role_query": [
+    {
+      "id": "00000000-0000-0000-0000-111111111111",
+      "school_id": "66666666-6666-6666-6666-666666666666",
+      "permissions": [
+        "*"
+      ],
+      "updated_at": "2026-03-03T02:05:57.705Z",
+      "name": "SUPER_ADMIN",
+      "created_at": "2026-03-03T02:05:57.705Z"
+    }
+  ]
+}
