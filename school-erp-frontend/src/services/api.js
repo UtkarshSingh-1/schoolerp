@@ -71,14 +71,15 @@ export const examApi = {
 
 // Finance Service
 export const financeApi = {
-    createFeeStructure: (data) => api.post('/finance/fees/structures', data),
-    allocateFee: (data) => api.post('/finance/fees/allocate', data),
-    payFee: (data) => api.post('/finance/fees/pay', data),
-    getStudentFees: (studentId) => api.get(`/finance/fees/student/${studentId}`),
-    getTransactions: () => api.get('/finance/fees/transactions'),
-    createSalaryStructure: (data) => api.post('/finance/payroll/salary-structure', data),
-    processPayroll: (month) => api.post('/finance/payroll/process', { month }),
-    getStaffPayroll: (staffId) => api.get(`/finance/payroll/staff/${staffId}`)
+    getFeeSettings: (params) => api.get('/fees/settings', { params }),
+    saveFeeSetting: (data) => api.post('/fees/settings', data),
+    getStudentFees: (studentId) => api.get(`/fees/student/${studentId}`),
+    getMyFees: (params) => api.get('/fees/my', { params }),
+    getTransactions: (params) => api.get('/fees/transactions', { params }),
+    payFee: (data) => api.post('/fees/pay', data),
+    getInvoice: (transactionId) => api.get(`/fees/invoice/${transactionId}`),
+    processPayroll: (month) => api.post('/payroll/process', { month }),
+    getStaffPayroll: (staffId) => api.get(`/payroll/history/${staffId}`)
 };
 
 // Admin Service

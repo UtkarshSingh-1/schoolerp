@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ChevronLeft, ChevronRight, CheckCircle, Upload } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
-import { admissionApi, classApi, studentsApi } from '../services/api';
+import { admissionApi, classApi, studentsApi, financeApi } from '../services/api';
 
 const initialForm = {
   fullName: '',
@@ -37,6 +37,8 @@ const initialForm = {
   reportCard: '',
   transportRequirement: '',
   medicalHistory: '',
+  admissionFeeSubmitted: 'NO',
+  admissionFeePaymentMode: 'CASH',
   siblingInSchool: false,
   declarationAccepted: false,
   parentSignature: '',
@@ -54,12 +56,14 @@ const Admission = () => {
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [classes, setClasses] = useState([]);
+  const [feeByClass, setFeeByClass] = useState({});
   const [applications, setApplications] = useState([]);
   const [showForm, setShowForm] = useState(!isAdmin);
   const [formData, setFormData] = useState(initialForm);
 
   useEffect(() => {
     fetchClasses();
+    fetchFeeSettings();
     if (isAdmin) fetchApplications();
   }, [isAdmin]);
 
@@ -81,6 +85,19 @@ const Admission = () => {
       setApplications(res.data || []);
     } catch (err) {
       console.error('Error loading applications', err);
+    }
+  };
+
+  const fetchFeeSettings = async () => {
+    try {
+      const res = await financeApi.getFeeSettings();
+      const map = {};
+      (res.data || []).forEach((f) => {
+        map[f.class_id] = Number(f.admission_fee || 0);
+      });
+      setFeeByClass(map);
+    } catch (err) {
+      console.error('Error loading fee settings', err);
     }
   };
 
@@ -250,6 +267,9 @@ const Admission = () => {
                 <option value="">Target Class *</option>
                 {classes.map((c) => <option key={c.id} value={c.id}>{c.name} - {c.section}</option>)}
               </select>
+              <div className="md:col-span-2 px-4 py-3 border rounded-xl bg-blue-50 text-blue-800 text-sm font-semibold">
+                Admission Fee (INR): {Number(feeByClass[formData.targetClassId] || 0).toLocaleString('en-IN')}
+              </div>
             </div>
           )}
 
@@ -283,6 +303,16 @@ const Admission = () => {
               <input name="reportCard" value={formData.reportCard} onChange={onChange} placeholder="Report Card details (Optional)" className="px-4 py-3 border rounded-xl" />
               <input name="transportRequirement" value={formData.transportRequirement} onChange={onChange} placeholder="Transport Requirement (Optional)" className="px-4 py-3 border rounded-xl" />
               <input name="medicalHistory" value={formData.medicalHistory} onChange={onChange} placeholder="Medical history / allergies (Optional)" className="px-4 py-3 border rounded-xl" />
+              <select name="admissionFeeSubmitted" value={formData.admissionFeeSubmitted} onChange={onChange} className="px-4 py-3 border rounded-xl">
+                <option value="NO">Admission Fee Submitted? No</option>
+                <option value="YES">Admission Fee Submitted? Yes</option>
+              </select>
+              <select name="admissionFeePaymentMode" value={formData.admissionFeePaymentMode} onChange={onChange} className="px-4 py-3 border rounded-xl" disabled={formData.admissionFeeSubmitted !== 'YES'}>
+                <option value="CASH">Payment Mode: CASH</option>
+                <option value="UPI">Payment Mode: UPI</option>
+                <option value="CARD">Payment Mode: CARD</option>
+                <option value="NETBANKING">Payment Mode: NETBANKING</option>
+              </select>
               <input name="parentSignature" value={formData.parentSignature} onChange={onChange} placeholder="Parent Signature Name" className="px-4 py-3 border rounded-xl" />
 
               <label className="border rounded-xl p-3 text-sm text-gray-700">

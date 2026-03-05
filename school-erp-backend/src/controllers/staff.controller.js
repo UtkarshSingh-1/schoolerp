@@ -4,7 +4,10 @@ const emailService = require('../services/emailService');
 
 async function getNextEmployeeId(client, schoolId) {
     const serialRes = await client.query(
-        `SELECT COALESCE(MAX(NULLIF(regexp_replace(COALESCE(employee_id, ''), '\\D', '', 'g'), '')::BIGINT), 0) AS max_serial
+        `SELECT COALESCE(MAX(CASE
+            WHEN employee_id ~ '^EMP-[0-9]{1,9}$' THEN substring(employee_id from 5)::INT
+            ELSE 0
+        END), 0) AS max_serial
          FROM users
          WHERE school_id = $1 AND employee_id IS NOT NULL`,
         [schoolId]

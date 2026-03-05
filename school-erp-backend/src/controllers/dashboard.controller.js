@@ -10,7 +10,7 @@ exports.getAdminMetrics = async (req, res) => {
 
         // 2. Fees Collected (Current Month)
         const feesRes = await pool.query(
-            'SELECT SUM(amount_paid) FROM fee_payments WHERE payment_date >= $1',
+            "SELECT SUM(amount) FROM transactions WHERE type = 'FEE_PAYMENT' AND status = 'COMPLETED' AND created_at >= $1",
             [monthStart]
         );
 

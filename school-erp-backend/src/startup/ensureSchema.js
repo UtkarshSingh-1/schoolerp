@@ -115,6 +115,24 @@ async function ensureSchema() {
     CREATE UNIQUE INDEX IF NOT EXISTS ux_lectures_class_day_start
       ON lectures (school_id, class_id, day_of_week, start_time);
   `);
+
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS class_fee_settings (
+      id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      school_id UUID NOT NULL,
+      class_id UUID NOT NULL REFERENCES classes(id) ON DELETE CASCADE,
+      admission_fee NUMERIC(12,2) NOT NULL DEFAULT 0,
+      monthly_fee NUMERIC(12,2) NOT NULL DEFAULT 0,
+      currency VARCHAR(3) NOT NULL DEFAULT 'INR',
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    );
+  `);
+
+  await pool.query(`
+    CREATE UNIQUE INDEX IF NOT EXISTS ux_class_fee_settings_school_class
+      ON class_fee_settings (school_id, class_id);
+  `);
 }
 
 module.exports = { ensureSchema };

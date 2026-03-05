@@ -1,12 +1,16 @@
 const pool = require('../config/db');
 const bcrypt = require('bcrypt');
+const crypto = require('crypto');
 const emailService = require('../services/emailService');
 const DEFAULT_SCHOOL_ID = '66666666-6666-6666-6666-666666666666';
 const getSchoolId = (req) => req.header('x-school-id') || DEFAULT_SCHOOL_ID;
 
 async function getNextStudentAdmissionNo(client, schoolId) {
     const serialRes = await client.query(
-        `SELECT COALESCE(MAX(NULLIF(regexp_replace(admission_no, '\\D', '', 'g'), '')::BIGINT), 0) AS max_serial
+        `SELECT COALESCE(MAX(CASE
+            WHEN admission_no ~ '^ADM-[0-9]{1,9}$' THEN substring(admission_no from 5)::INT
+            ELSE 0
+        END), 0) AS max_serial
          FROM students
          WHERE school_id = $1`,
         [schoolId]
@@ -25,6 +29,8 @@ exports.createStudent = async (req, res) => {
     const aadhaarNumber = req.body.aadhaarNumber || req.body.nationalId || null;
     const passportPhoto = null;
     const currentClassId = req.body.classId || req.body.targetClassId || req.body.currentClassId || null;
+    const admissionFeeSubmitted = String(req.body.admissionFeeSubmitted || req.body.admissionFeePaid || 'NO').toUpperCase() === 'YES';
+    const admissionFeePaymentMode = (req.body.admissionFeePaymentMode || 'CASH').toUpperCase();
 
     if (!fullName || !dateOfBirth || !gender || !bloodGroup || !category || !aadhaarNumber || !currentClassId) {
         return res.status(400).json({
@@ -123,6 +129,58 @@ exports.createStudent = async (req, res) => {
             ]
         );
 
+        let admissionFeeReceipt = null;
+        if (admissionFeeSubmitted) {
+            const feeSettingRes = await client.query(
+                `SELECT COALESCE(admission_fee, 0) AS admission_fee
+                 FROM class_fee_settings
+                 WHERE school_id = $1 AND class_id = $2
+                 LIMIT 1`,
+                [schoolId, currentClassId]
+            );
+            const admissionFee = Number.parseFloat(feeSettingRes.rows[0]?.admission_fee || 0) || 0;
+            if (admissionFee <= 0) {
+                return res.status(400).json({
+                    success: false,
+                    message: 'Admission fee is not configured for this class. Configure class admission fee in Fee Management first.'
+                });
+            }
+
+            const txRes = await client.query(
+                `INSERT INTO transactions (
+                    school_id, student_id, amount, currency, status, type, metadata, payment_method, idempotency_key, created_by
+                 ) VALUES (
+                    $1, $2, $3, 'INR', 'COMPLETED', 'FEE_PAYMENT', $4::jsonb, $5, $6, $7
+                 )
+                 RETURNING id, amount, currency, created_at`,
+                [
+                    schoolId,
+                    studentInsert.rows[0].id,
+                    admissionFee,
+                    JSON.stringify({ feeType: 'ADMISSION', source: 'admission-form' }),
+                    admissionFeePaymentMode,
+                    crypto.randomUUID(),
+                    req.user?.id || createdBy
+                ]
+            );
+
+            await client.query(
+                `INSERT INTO ledger_entries (
+                    school_id, transaction_id, debit_account, credit_account, amount, currency, metadata
+                 ) VALUES (
+                    $1, $2, 'CASH_HAND', 'ADMISSION_FEES', $3, 'INR', $4::jsonb
+                 )`,
+                [schoolId, txRes.rows[0].id, admissionFee, JSON.stringify({ source: 'admission-form' })]
+            );
+
+            admissionFeeReceipt = {
+                transactionId: txRes.rows[0].id,
+                invoiceNo: `INV-${String(txRes.rows[0].id).split('-')[0].toUpperCase()}`,
+                amount: admissionFee,
+                currency: 'INR'
+            };
+        }
+
         await client.query('COMMIT');
 
         let emailStatus = { success: false, reason: 'No email provided' };
@@ -142,6 +200,7 @@ exports.createStudent = async (req, res) => {
             success: true,
             studentId: studentInsert.rows[0].id,
             admissionNo: studentInsert.rows[0].admission_no,
+            admissionFee: admissionFeeReceipt,
             loginEmail: contactEmail || null,
             credentialsSent: !!emailStatus?.success,
             emailError: emailStatus?.success ? null : (emailStatus?.error || emailStatus?.reason || null),
