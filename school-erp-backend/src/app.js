@@ -26,8 +26,30 @@ const classesRoutes = require('./routes/classes.routes');
 const admissionRoutes = require('./routes/admission.routes');
 
 const app = express();
+const defaultOrigins = [
+    'http://localhost:5173',
+    'http://127.0.0.1:5173'
+];
+
+const envOrigins = (process.env.CORS_ORIGINS || '')
+    .split(',')
+    .map((o) => o.trim())
+    .filter(Boolean);
+
+const allowedOrigins = new Set([...defaultOrigins, ...envOrigins]);
+
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: (origin, callback) => {
+        // Allow server-to-server and non-browser requests with no Origin header.
+        if (!origin) return callback(null, true);
+
+        // Allow explicit configured origins and Vercel preview/prod domains.
+        if (allowedOrigins.has(origin) || /\.vercel\.app$/.test(origin)) {
+            return callback(null, true);
+        }
+
+        return callback(new Error(`CORS blocked for origin: ${origin}`));
+    },
     credentials: true
 }));
 app.use(helmet({
